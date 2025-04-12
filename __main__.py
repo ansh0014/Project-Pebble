@@ -3,7 +3,8 @@ import os
 import platform
 import webbrowser
 import subprocess
-import openai
+import datetime
+# import openai
 
 def say(text):
     # Check the operating system and use appropriate command
@@ -70,6 +71,11 @@ def open_codeditor():
 
     else:
         say("Sorry, I don't know how to open VS Code on your operating system.")
+        # adding time fucntion
+def get_time():
+    """Function to get current time in 12-hour format"""
+    current_time = datetime.datetime.now().strftime("%I:%M %p")
+    return f"The current time is {current_time}"
 
 
 def takecommand():
@@ -91,6 +97,7 @@ def takecommand():
 if __name__ == "__main__":
     print("AI Assistant is ready to work")
     say("Hello I am Pedel")
+    say("How can Help you?")
     while True:
         # print("listening")
         query = takecommand()
@@ -129,6 +136,12 @@ if __name__ == "__main__":
         elif "open vs code" in query_lower or "open visual studio code" in query_lower or "open vscode" in query_lower:
             say("Opening Visual Studio Code")
             open_vscode()
+            # add time
+        elif " time" in query_lower or "tell me the time" in query_lower:
+            time_string = get_time()
+            say(time_string)
+            print(time_string)
+
 
         elif "open chatgpt" in query_lower or "chatgpt" in query_lower:
             say("Opening ChatGPT")
@@ -155,6 +168,6 @@ if __name__ == "__main__":
             say("Opening Gmail")
             webbrowser.open("https://mail.google.com/")
 
-        elif "exit" in query_lower or "quit" in query_lower:
+        elif "close" in query_lower or "Ok got it" in query_lower:
             say("Goodbye!")
             break
