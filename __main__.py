@@ -97,7 +97,7 @@ def takecommand():
 if __name__ == "__main__":
     print("AI Assistant is ready to work")
     say("Hello I am Pedel")
-    say("How can Help you?")
+    say("How i can Help you?")
     while True:
         # print("listening")
         query = takecommand()
