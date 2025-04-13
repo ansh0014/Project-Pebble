@@ -37,3 +37,10 @@ if __name__ == "__main__":
             break
         else:
             run_command(query_lower)
+
+
+# TO-DOS
+
+# Finalize the open app funcitionality
+# fix the volume issues
+# fix the issue of cmd opening in the terminal instead of pop-up window
