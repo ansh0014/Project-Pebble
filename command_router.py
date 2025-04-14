@@ -14,6 +14,7 @@ import re
 import winreg
 import glob
 
+from utils.ai_integration import *
 from utils.speak import say
 import utils.get_paths as get_paths
 from utils.get_paths import KNOWN_FOLDER_IDS
@@ -278,6 +279,8 @@ def run_command(command: str):
     elif command.startswith("open "):
         app_name = command.replace("open", "").strip()
         open_app(app_name)
+    elif "open ai" or "ask ai" or "ai" in command:
+        groq_int()
     else:
         print("Command not recognized:", command)
         say("Sorry, I don't recognize that command.")
