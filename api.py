@@ -2,40 +2,25 @@ import os
 from groq import Groq
 from config import apikey
 
-def setup_api_client():
-    if not apikey:
-        raise ValueError("GROQ_API_KEY environment variable is not set")
-    return Groq(api_key=apikey)
+client = Groq(api_key=apikey)  # reuse client
 
 def get_ai_response(prompt):
-    client = setup_api_client()
     try:
         completion = client.chat.completions.create(
-            model="meta-llama/llama-4-scout-17b-16e-instruct",
-            messages=[{"role": "user", "content": prompt}],
-            temperature=1,
-            max_completion_tokens=1024,
-            top_p=1,
-            stream=True,
-            stop=None,
+            model="deepseek-r1-distill-llama-70b",
+            messages=[{
+                "role": "user",
+                "content": prompt
+            }],
+            temperature=0.6,
+            max_completion_tokens=4096,
+            top_p=0.95,
+            stream=False  # set to False for debug
         )
-        
-        print(f"\n=== Response for: {prompt} ===\n")
-        response_text = ""
-        for chunk in completion:
-            if chunk.choices[0].delta.content:
-                content = chunk.choices[0].delta.content
-                response_text += content
-                print(content, end="", flush=True)
-        
+        response_text = completion.choices[0].message.content
+        print(f"\n=== Response for: {prompt} ===\n{response_text}")
         return response_text
 
     except Exception as e:
         print(f"\nAPI Error: {str(e)}")
         return None
-
-if __name__ == "__main__":
-    prompt = input("Enter your question: ")
-    response = get_ai_response(prompt)
-    if response:
-        print("\n\n=== Response saved successfully ===")

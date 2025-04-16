@@ -1,0 +1,9 @@
+speechrecognition
+pyttsx3
+groq
+pyaudio
+python-dotenv
+requests
+pyautogui
+psutil
+pillow
